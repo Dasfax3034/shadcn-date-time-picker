@@ -21,7 +21,15 @@ export function DateTimePicker24h() {
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const handleDateSelect = (selectedDate: Date | undefined) => {
     if (selectedDate) {
-      setDate(selectedDate);
+      setDate((prevDate) => {
+        if (prevDate) {
+          const newDate = new Date(selectedDate);
+          newDate.setHours(prevDate.getHours());
+          newDate.setMinutes(prevDate.getMinutes());
+          return newDate;
+        }
+        return selectedDate;
+      });
     }
   };
 
